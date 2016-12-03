@@ -5,6 +5,34 @@ namespace Kneu\Petition;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Kneu\Petition\Petition
+ *
+ * @property integer $id
+ * @property string $title
+ * @property string $content
+ * @property integer $user_id
+ * @property integer $votes
+ * @property boolean $is_closed
+ * @property boolean $is_successful
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read \Kneu\Petition\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Kneu\Petition\PetitionVote[] $petitionVotes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Kneu\Petition\PetitionComment[] $petitionComments
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereVotes($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereIsClosed($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereIsSuccessful($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Kneu\Petition\Petition whereDeletedAt($value)
+ * @mixin \Eloquent
+ */
 class Petition extends Model
 {
     use SoftDeletes;

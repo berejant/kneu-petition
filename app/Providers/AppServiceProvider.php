@@ -25,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
     {
         setlocale(LC_ALL, config('app.locale'), 'uk_UA', 'uk_UA.utf8');
         \Carbon\Carbon::setLocale(config('app.locale'));
+
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 }

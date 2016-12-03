@@ -1,17 +1,28 @@
 .petition-item {
+  .make-row();
   margin-bottom: 35px;
+  background-color: #f9f9f9;
 
   .petition-item__header {
     &:extend(.page-header);
-
+    .make-xs-column(12);
   }
 
   .petition-item__content{
+    .make-xs-column(8);
     font-size: @font-size-base * 1.2;
   }
 
+  .petition-item__progress {
+    .make-xs-column(4);
+    border: 1px solid #e6e6e6;
+    padding: 30px 50px;
+    text-align: center;
+  }
+
   .petition-item__bottom {
-    margin-top: 35px;
+    .make-row();
+    .make-xs-column(12);
   }
 
   .petition-item__author {

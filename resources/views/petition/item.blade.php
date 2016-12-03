@@ -1,17 +1,26 @@
 @extends('layouts.main')
 
-@section('title', 'Створення петиції')
+@section('title', 'Петиція №' . $petition->id . ' - ' . $petition->title)
 
 @section('content')
 
     <div class="petition-item">
         <div class="petition-item__header">
             <h3>{{ $petition->title }}</h3>
+
+            <div class="">
+
+            </div>
         </div>
 
         <div class="petition-item__content">
             {!! nl2br(e($petition->content)) !!}
         </div>
+
+        <div class="petition-item__progress">
+            @include('petition.progress')
+        </div>
+
 
         <div class="petition-item__bottom">
             <span class="petition-item__author">

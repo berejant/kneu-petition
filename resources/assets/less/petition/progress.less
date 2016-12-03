@@ -1,0 +1,64 @@
+.petition-votes {
+
+  .petition-votes__title {
+    font-size: ceil((@font-size-base * 1.3));
+    font-weight: bold;
+  }
+
+  .petition-votes__progress {
+    &:extend(.progress);
+  }
+
+  .petition-votes__progress-bar {
+    &:extend(.progress-bar);
+    &:extend(.progress-bar-success);
+  }
+
+}
+
+.vote-button {
+  &:extend(.btn all);
+  &:extend(.btn-success all);
+
+}
+
+.vote-button_disabled {
+  .btn.disabled;
+}
+
+.petition-votes .vote-button {
+  margin-top: 10px;
+}
+
+.petition-resolution {
+  font-size: ceil((@font-size-base * 1.2));
+  margin-bottom: 25px;
+}
+
+.petition-resolution__icon {
+  &:extend(.glyphicon);
+}
+
+.petition-resolution_open  {
+  &:extend(.text-warning);
+
+  .petition-resolution__icon {
+    .glyphicon-check;
+  }
+}
+
+.petition-resolution_successful {
+  &:extend(.text-primary);
+
+  .petition-resolution__icon {
+    .glyphicon-ok;
+  }
+}
+
+.petition-resolution_closed  {
+  &:extend(.text-danger);
+
+  .petition-resolution__icon {
+    .glyphicon-remove;
+  }
+}
