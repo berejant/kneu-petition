@@ -145,5 +145,69 @@ jQuery(function ($) {
         }
     });
 
+    $('.petition-statistics__status-diargam').each(makeStatusDiagram);
+
 });
 
+// Google charts
+function loadGoogleCharts() {
+    if(!loadGoogleCharts.xhr) {
+        loadGoogleCharts.xhr = jQuery.ajax({
+            dataType:'script',
+            cache:true,
+            url:'https://www.gstatic.com/charts/loader.js',
+            success: function() {
+                google.charts.load("current", {packages:["corechart"]});
+            }
+        });
+    }
+
+    let defer = jQuery.Deferred();
+
+    loadGoogleCharts.xhr.then(function () {
+        google.charts.setOnLoadCallback(defer.resolve);
+    }, defer.reject);
+
+    return defer.promise();
+}
+
+function makeStatusDiagram() {
+    let elem = this;
+
+    loadGoogleCharts().then(function () {
+        let config = $(elem).data();
+
+        let data = google.visualization.arrayToDataTable(config.data);
+        delete config.data;
+
+        const options = _.extend({
+            fontName: 'Roboto',
+            chartArea: {
+                height: 320,
+            },
+            is3D: true,
+            titleTextStyle: {
+                fontSize: 28,
+                bold: true,
+            },
+            legend: {
+                position: 'labeled',
+                alignment: 'start',
+                textStyle: {
+                    fontSize: 16,
+                }
+            },
+            pieStartAngle: 90,
+            pieSliceText: 'value',
+            pieSliceTextStyle: {
+                color: "white",
+                fontName: 'Roboto',
+                bold: true,
+                fontSize: 18,
+            }
+        }, config);
+
+        let chart = new google.visualization.PieChart(elem);
+        chart.draw(data, options);
+    });
+}

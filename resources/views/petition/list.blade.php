@@ -4,6 +4,13 @@
 
 @section('content')
 
+    <div class="petition-statistics">
+        <div class="petition-statistics__status-diargam"
+             data-data='{!! json_encode($statusStatistics, JSON_UNESCAPED_UNICODE) !!}'
+             data-title="Структура петицій по статусам"
+        ></div>
+    </div>
+
     <h1>@lang('petition.filterHeader.' . $filter)</h1>
 
     <div class="petition-list">

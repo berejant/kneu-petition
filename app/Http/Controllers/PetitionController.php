@@ -9,6 +9,7 @@ use Kneu\Petition\Http\Requests\StorePetitionPost;
 use Kneu\Petition\Petition;
 use Kneu\Petition\PetitionComment;
 use Kneu\Petition\PetitionVote;
+use Cache;
 
 class PetitionController extends Controller
 {
@@ -47,9 +48,41 @@ class PetitionController extends Controller
 
         $petitions = $builder->paginate(10);
 
+        $statusStatistics = $this->getPetitionStatusStatistics();
+
         return view('petition.list', compact(
-            'petitions', 'filter'
+            'petitions', 'filter', 'statusStatistics'
         ));
+    }
+
+    protected function getPetitionStatusStatistics()
+    {
+        /* Dummy  Statistics  */
+        return [
+            ['Статус петиції', 'Кількість'],
+            ['Йде голосування', 11],
+            ['Не підтримано', 4],
+            ['На розгляді', 4],
+            ['Розглянуто', 5]
+        ];
+        /* */
+
+        $statistics = Cache::get(__METHOD__);
+
+        if(!$statistics) {
+            $statistics = [
+                ['Статус петиції', 'Кількість'],
+                ['Йде голосування', Petition::where('is_closed', 0)->count()],
+                ['Не підтримано', Petition::where('is_closed', 0)->where('is_successful', 0) ->count()],
+                ['На розгляді',   Petition::where('is_successful', 1) ->count()],
+                ['Розглянуто',  0],
+            ];
+
+            Cache::put(__METHOD__, $statistics, 10);
+        }
+
+        return $statistics;
+
     }
 
     /**
