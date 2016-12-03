@@ -3,9 +3,11 @@
 namespace Kneu\Petition\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Kneu\Petition\Http\Requests\StorePetitionPost;
 use Kneu\Petition\Petition;
+use Kneu\Petition\PetitionComment;
 use Kneu\Petition\PetitionVote;
 
 class PetitionController extends Controller
@@ -25,13 +27,23 @@ class PetitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $builder = Petition::query();
+        $actionName = $request->route()->getName();
 
-        // $builder = $builder->where('is_closed', false);
+        $filter = null;
+        if( ($pos = strpos($actionName, 'index.')) !== false) {
+            $filter = substr($actionName, $pos + 6);
+        }
 
-        $petitions = $builder->paginate(15);
+        $builder = Petition::orderBy('created_at', 'DESC');
+
+        switch ($filter) {
+            case 'open': $builder->where('is_closed', false); break;
+            case 'successful': $builder->where('is_successful', true); break;
+        }
+
+        $petitions = $builder->paginate(10);
 
         return view('petition.list', compact(
             'petitions'
@@ -46,7 +58,7 @@ class PetitionController extends Controller
      */
     public function show(Petition $petition)
     {
-        return view('petition.view', [
+        return view('petition.item', [
             'petition' => $petition
         ]);
     }
@@ -58,10 +70,11 @@ class PetitionController extends Controller
      */
     public function create()
     {
-        $petition = new Petition();
-        $petition->user_id = Auth::id();
+        $this->authorize('create', Petition::class);
 
-        return $this->edit($petition);
+        return view('petition.edit', [
+            'petition' =>  new Petition,
+        ]);
     }
 
     /**
@@ -72,6 +85,8 @@ class PetitionController extends Controller
      */
     public function edit(Petition $petition)
     {
+        $this->authorize('update', $petition);
+
         return view('petition.edit', [
             'petition' => $petition
         ]);
@@ -85,10 +100,14 @@ class PetitionController extends Controller
      */
     public function store(StorePetitionPost $request)
     {
-        $petition = new Petition();
-        $petition->user_id = Auth::id();
+        $this->authorize('create', Petition::class);
 
-        return $this->update($request, $petition);
+        $petition = new Petition();
+        $petition->user()->associate(Auth::user());
+
+        $this->save($request, $petition);
+
+        return redirect()->action('PetitionController@show', ['petition' => $petition]);
     }
 
     /**
@@ -100,10 +119,17 @@ class PetitionController extends Controller
      */
     public function update(StorePetitionPost $request, Petition $petition)
     {
-        $petition->fill($request->all());
-        $petition->save();
+        $this->authorize('update', $petition);
+
+        $this->save($request, $petition);
 
         return redirect()->action('PetitionController@show', ['petition' => $petition]);
+    }
+
+    protected function save(StorePetitionPost $request, Petition $petition)
+    {
+        $petition->fill($request->all());
+        $petition->save();
     }
 
     /**
@@ -112,9 +138,20 @@ class PetitionController extends Controller
      * @param  Petition  $petition
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Petition $petition)
+    public function destroy(Request $request, Petition $petition)
     {
-        //
+        $this->authorize('delete', $petition);
+
+        $petition->delete();
+
+        if($request->ajax()) {
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        return redirect()->action('PetitionController@index');
+
     }
 
     public function vote(Request $request, Petition $petition)

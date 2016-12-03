@@ -6,9 +6,12 @@
   .navbar-inverse;
 
   .navbar-brand {
-    height: 64px;
     padding-left: 64px;
     background: url("layout/logo.png") 0 center no-repeat;
+  }
+
+  .navbar-nav > li > a {
+    height: 64px;
   }
 
 }
@@ -29,11 +32,15 @@
     padding: 0;
     text-transform: none;
     vertical-align: top;
-    &:hover {
-      color: #fff;
-      background-color: transparent;
+
+    &:hover, &:focus, &:active, &:active:hover {
+      color: @navbar-inverse-link-hover-color;
+      background-color: @navbar-inverse-link-hover-bg;
       text-decoration: none;
+      background-image: none;
+      box-shadow:none;
     }
+
   };
 }
 

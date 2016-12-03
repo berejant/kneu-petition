@@ -1,15 +1,22 @@
+@charset "utf-8";
+
 @import "../../../node_modules/bootstrap-less/bootstrap/bootstrap";
 @import "../../../node_modules/bootswatch/paper/bootswatch";
 @import "../../../node_modules/bootswatch/paper/variables";
 
-@import "navbar";
+@import "layout/navbar";
 @import "petition/list";
 @import "petition/vote";
 @import "petition/edit";
+@import "petition/item";
 
 
 @font-size-base: 14px;
 @page-header-coefficient: 0.3;
+@pagination-active-bg: #46b560;
+@pagination-active-border: #055017;
+@pagination-color: #018c23;
+@pagination-hover-color: #000;
 
 footer {
   &::before {
@@ -20,11 +27,11 @@ footer {
   }
   .text-center;
   margin-bottom: @line-height-computed / 2;
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 
-.hr(@place: before, @height: 14px, @size: 14px, @top: 5px, @bottom: 5px) {
+.hr(@place: before, @height: 7px, @size: 7px, @top: 5px, @bottom: 5px) {
   &:@{place} {
     content: "– – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – –";
     letter-spacing: 1px;
@@ -43,4 +50,11 @@ textarea {
   resize: vertical;
 }
 
+.pagination-row {
+  width: 100%;
+  text-align: center;
 
+  .pagination {
+    margin: 0;
+  }
+}

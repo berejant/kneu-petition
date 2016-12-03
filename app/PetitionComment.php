@@ -9,6 +9,8 @@ class PetitionComment extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = ['content'];
+
     public function petition()
     {
         return $this->belongsTo('Kneu\Petition\Petition');

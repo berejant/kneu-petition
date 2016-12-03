@@ -19,3 +19,4 @@ Route::get('/', 'PetitionController@index')->name('petitions.index.open');
 Route::get('/petitions/successful', 'PetitionController@index')->name('petitions.index.successful');
 Route::post('/petitions/{petition}/vote', 'PetitionController@vote')->name('petitions.vote');
 Route::resource('petitions', 'PetitionController');
+Route::resource('petitions.comments', 'PetitionCommentController');

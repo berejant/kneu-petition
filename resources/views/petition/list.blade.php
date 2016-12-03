@@ -51,13 +51,13 @@
                     </div>
 
                     @if(!$petition->is_closed)
-                        @if ($petition->hasUserVoted(Auth::id()))
+                        @if (Auth::check() && $petition->hasUserVoted(Auth::id()))
                             <button class="vote-button" data-petition-id="{{ $petition->id }}" disabled>
                                 @lang('petition.alreadyVoted')
                             </button>
 
                         @else
-                            <button class="vote-button" data-petition-id="{{ $petition->id }}">
+                            <button class="vote-button require-authentication" data-petition-id="{{ $petition->id }}">
                                 @lang('petition.vote')
                             </button>
 

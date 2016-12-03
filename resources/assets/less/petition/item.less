@@ -1,0 +1,118 @@
+.petition-item {
+  margin-bottom: 35px;
+
+  .petition-item__header {
+    &:extend(.page-header);
+
+  }
+
+  .petition-item__content{
+    font-size: @font-size-base * 1.2;
+  }
+
+  .petition-item__bottom {
+    margin-top: 35px;
+  }
+
+  .petition-item__author {
+    .make-xs-column(3);
+    font-weight: bolder;
+  }
+
+  .petition-item__datetime {
+    .make-xs-column(3);
+    &:extend(.text-muted);
+  }
+
+  .petition-item__actions {
+    .make-xs-column-offset(6);
+  }
+
+  .petition-item__edit {
+    &:extend(.btn);
+    &:extend(.btn-sm);
+    .btn-warning;
+    margin: 0 15px;
+
+    > i {
+      &:extend(.glyphicon);
+      .glyphicon-edit;
+    }
+  }
+
+  .petition-item__remove {
+    &:extend(.btn);
+    &:extend(.btn-sm);
+    .btn-danger;
+    margin: 0 15px;
+
+    > i {
+      &:extend(.glyphicon);
+      .glyphicon-remove;
+    }
+  }
+
+}
+
+.petition-comments-list {
+  .hr(@top: 30px, @bottom: 30px);
+
+  .petition-comments-list__header {
+    .make-row();
+    margin-bottom: 15px;
+  }
+
+  .petition-comments-list__header-title {
+    &:extend(h5);
+    .make-xs-column(4);
+  }
+
+  .petition-comments-list__actions {
+    .make-xs-column(8);
+  }
+
+  .petition-comments-list__add-button {
+    .btn;
+  }
+
+}
+
+.petition-comment-item {
+//  .hr();
+  .panel;
+  .panel-default;
+
+  .petition-comment-item__header {
+    .panel-heading;
+
+    .petition-comment-item__author {
+      .panel-title;
+    }
+  }
+
+  .petition-comment-item__datetime {
+    .text-muted;
+    .text-right;
+  }
+
+  .petition-comment-item__content {
+    .panel-body;
+    margin-top: 18px;
+  }
+}
+
+.petition-comment-item__header {
+  .panel-heading;
+}
+
+
+.add-comment-form {
+  &:extend(.form-horizontal);
+  display: none;
+  margin: 20px 0;
+
+}
+
+
+
+

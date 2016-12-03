@@ -1,3 +1,4 @@
+@charset "utf-8";
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
 html {
@@ -264,7 +265,9 @@ th {
 .user-icon,
 .login-icon,
 .logout-icon,
-.petition-list-item .petition-list-item__resolution-icon {
+.petition-list-item .petition-list-item__resolution-icon,
+.petition-item .petition-item__edit > i,
+.petition-item .petition-item__remove > i {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -1160,7 +1163,8 @@ h6,
 .h3,
 .h4,
 .h5,
-.h6 {
+.h6,
+.petition-comments-list .petition-comments-list__header-title {
   font-family: inherit;
   font-weight: 400;
   line-height: 1.1;
@@ -1222,7 +1226,8 @@ h4,
 h5,
 .h5,
 h6,
-.h6 {
+.h6,
+.petition-comments-list .petition-comments-list__header-title {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
 }
@@ -1257,7 +1262,8 @@ h4,
   font-size: 24px;
 }
 h5,
-.h5 {
+.h5,
+.petition-comments-list .petition-comments-list__header-title {
   font-size: 20px;
 }
 h6,
@@ -1311,7 +1317,8 @@ mark,
 .text-capitalize {
   text-transform: capitalize;
 }
-.text-muted {
+.text-muted,
+.petition-item .petition-item__datetime {
   color: #bbb;
 }
 .text-primary,
@@ -1378,7 +1385,8 @@ a.bg-warning:hover {
 a.bg-danger:hover {
   background-color: #f5908c;
 }
-.page-header {
+.page-header,
+.petition-item .petition-item__header {
   padding-bottom: 11.5px;
   margin: 50px 0 25px;
   border-bottom: 1px solid #eeeeee;
@@ -2945,7 +2953,9 @@ select[multiple].form-group-lg .form-control {
 .btn,
 .logout-form button,
 .new-petition-button,
-.vote-button {
+.vote-button,
+.petition-item .petition-item__edit,
+.petition-item .petition-item__remove {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -3351,6 +3361,8 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-sm,
 .btn-group-sm > .btn,
+.petition-item .petition-item__edit,
+.petition-item .petition-item__remove,
 .btn-group-sm > .vote-button {
   padding: 5px 10px;
   font-size: 12px;
@@ -4686,7 +4698,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 6px 16px;
   line-height: 1.846;
   text-decoration: none;
-  color: #2196F3;
+  color: #018c23;
   background-color: #fff;
   border: 1px solid #ddd;
   margin-left: -1px;
@@ -4706,7 +4718,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  color: #0a6ebd;
+  color: #000;
   background-color: #eeeeee;
   border-color: #ddd;
 }
@@ -4718,8 +4730,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #fff;
-  background-color: #2196F3;
-  border-color: #2196F3;
+  background-color: #46b560;
+  border-color: #055017;
   cursor: default;
 }
 .pagination > .disabled > span,
@@ -6352,6 +6364,10 @@ button.close {
 .petition-list-item:after,
 .petition-list-item .petition-list-item__header:before,
 .petition-list-item .petition-list-item__header:after,
+.petition-comments-list .petition-comments-list__header:before,
+.petition-comments-list .petition-comments-list__header:after,
+.petition-comment-item .petition-comment-item__content:before,
+.petition-comment-item .petition-comment-item__content:after,
 .main-navbar:before,
 .main-navbar:after {
   content: " ";
@@ -6374,6 +6390,8 @@ button.close {
 .modal-footer:after,
 .petition-list-item:after,
 .petition-list-item .petition-list-item__header:after,
+.petition-comments-list .petition-comments-list__header:after,
+.petition-comment-item .petition-comment-item__content:after,
 .main-navbar:after {
   clear: both;
 }
@@ -6787,7 +6805,9 @@ button.close {
 .btn,
 .logout-form button,
 .new-petition-button,
-.vote-button {
+.vote-button,
+.petition-item .petition-item__edit,
+.petition-item .petition-item__remove {
   text-transform: uppercase;
   border: none;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
@@ -7439,9 +7459,11 @@ fieldset[disabled] .main-navbar .btn-link:focus {
   color: #444;
 }
 .main-navbar .navbar-brand {
-  height: 64px;
   padding-left: 64px;
   background: url("layout/logo.png") 0 center no-repeat;
+}
+.main-navbar .navbar-nav > li > a {
+  height: 64px;
 }
 .user-icon:before {
   content: "\e008";
@@ -7550,10 +7572,15 @@ fieldset[disabled] .logout-form button:focus {
   background-size: 1000% 1000%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
-.logout-form button:hover {
+.logout-form button:hover,
+.logout-form button:focus,
+.logout-form button:active,
+.logout-form button:active:hover {
   color: #fff;
   background-color: transparent;
   text-decoration: none;
+  background-image: none;
+  box-shadow: none;
 }
 .login-icon:before {
   content: "\e161";
@@ -7726,10 +7753,516 @@ fieldset[disabled] .new-petition-button.active {
 .petition-votes .vote-button {
   margin-top: 10px;
 }
+.petition-item {
+  margin-bottom: 35px;
+}
+.petition-item .petition-item__content {
+  font-size: 16.8px;
+}
+.petition-item .petition-item__bottom {
+  margin-top: 35px;
+}
+.petition-item .petition-item__author {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bolder;
+}
+.petition-item .petition-item__datetime {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.petition-item .petition-item__actions {
+  margin-left: 50%;
+}
+.petition-item .petition-item__edit {
+  color: #fff;
+  background-color: #ff9800;
+  border-color: transparent;
+  background-size: 200% 200%;
+  background-position: 50%;
+  margin: 0 15px;
+}
+.petition-item .petition-item__edit:hover,
+.petition-item .petition-item__edit:focus,
+.petition-item .petition-item__edit.focus,
+.petition-item .petition-item__edit:active,
+.petition-item .petition-item__edit.active,
+.open > .dropdown-toggle.petition-item .petition-item__edit {
+  color: #fff;
+  background-color: #cc7a00;
+  border-color: rgba(0, 0, 0, 0);
+}
+.petition-item .petition-item__edit:active,
+.petition-item .petition-item__edit.active,
+.open > .dropdown-toggle.petition-item .petition-item__edit {
+  background-image: none;
+}
+.petition-item .petition-item__edit.disabled,
+.petition-item .petition-item__edit[disabled],
+fieldset[disabled] .petition-item .petition-item__edit,
+.petition-item .petition-item__edit.disabled:hover,
+.petition-item .petition-item__edit[disabled]:hover,
+fieldset[disabled] .petition-item .petition-item__edit:hover,
+.petition-item .petition-item__edit.disabled:focus,
+.petition-item .petition-item__edit[disabled]:focus,
+fieldset[disabled] .petition-item .petition-item__edit:focus,
+.petition-item .petition-item__edit.disabled.focus,
+.petition-item .petition-item__edit[disabled].focus,
+fieldset[disabled] .petition-item .petition-item__edit.focus,
+.petition-item .petition-item__edit.disabled:active,
+.petition-item .petition-item__edit[disabled]:active,
+fieldset[disabled] .petition-item .petition-item__edit:active,
+.petition-item .petition-item__edit.disabled.active,
+.petition-item .petition-item__edit[disabled].active,
+fieldset[disabled] .petition-item .petition-item__edit.active {
+  background-color: #ff9800;
+  border-color: transparent;
+}
+.petition-item .petition-item__edit .badge {
+  color: #ff9800;
+  background-color: #fff;
+}
+.petition-item .petition-item__edit:focus {
+  background-color: #ff9800;
+}
+.petition-item .petition-item__edit:hover,
+.petition-item .petition-item__edit:active:hover {
+  background-color: #e08600;
+}
+.petition-item .petition-item__edit:active {
+  background-color: #c27400;
+  background-image: -webkit-radial-gradient(circle, #c27400 10%, #ff9800 11%);
+  background-image: radial-gradient(circle, #c27400 10%, #ff9800 11%);
+  background-repeat: no-repeat;
+  background-size: 1000% 1000%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.petition-item .petition-item__edit > i:before {
+  content: "\e065";
+}
+.petition-item .petition-item__remove {
+  color: #fff;
+  background-color: #e51c23;
+  border-color: transparent;
+  background-size: 200% 200%;
+  background-position: 50%;
+  margin: 0 15px;
+}
+.petition-item .petition-item__remove:hover,
+.petition-item .petition-item__remove:focus,
+.petition-item .petition-item__remove.focus,
+.petition-item .petition-item__remove:active,
+.petition-item .petition-item__remove.active,
+.open > .dropdown-toggle.petition-item .petition-item__remove {
+  color: #fff;
+  background-color: #b9151b;
+  border-color: rgba(0, 0, 0, 0);
+}
+.petition-item .petition-item__remove:active,
+.petition-item .petition-item__remove.active,
+.open > .dropdown-toggle.petition-item .petition-item__remove {
+  background-image: none;
+}
+.petition-item .petition-item__remove.disabled,
+.petition-item .petition-item__remove[disabled],
+fieldset[disabled] .petition-item .petition-item__remove,
+.petition-item .petition-item__remove.disabled:hover,
+.petition-item .petition-item__remove[disabled]:hover,
+fieldset[disabled] .petition-item .petition-item__remove:hover,
+.petition-item .petition-item__remove.disabled:focus,
+.petition-item .petition-item__remove[disabled]:focus,
+fieldset[disabled] .petition-item .petition-item__remove:focus,
+.petition-item .petition-item__remove.disabled.focus,
+.petition-item .petition-item__remove[disabled].focus,
+fieldset[disabled] .petition-item .petition-item__remove.focus,
+.petition-item .petition-item__remove.disabled:active,
+.petition-item .petition-item__remove[disabled]:active,
+fieldset[disabled] .petition-item .petition-item__remove:active,
+.petition-item .petition-item__remove.disabled.active,
+.petition-item .petition-item__remove[disabled].active,
+fieldset[disabled] .petition-item .petition-item__remove.active {
+  background-color: #e51c23;
+  border-color: transparent;
+}
+.petition-item .petition-item__remove .badge {
+  color: #e51c23;
+  background-color: #fff;
+}
+.petition-item .petition-item__remove:focus {
+  background-color: #e51c23;
+}
+.petition-item .petition-item__remove:hover,
+.petition-item .petition-item__remove:active:hover {
+  background-color: #cb171e;
+}
+.petition-item .petition-item__remove:active {
+  background-color: #b0141a;
+  background-image: -webkit-radial-gradient(circle, #b0141a 10%, #e51c23 11%);
+  background-image: radial-gradient(circle, #b0141a 10%, #e51c23 11%);
+  background-repeat: no-repeat;
+  background-size: 1000% 1000%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.petition-item .petition-item__remove > i:before {
+  content: "\e014";
+}
+.petition-comments-list:before {
+  content: "– – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – – –";
+  letter-spacing: 1px;
+  color: #bbbbbb;
+  height: 7px;
+  line-height: 7px;
+  font-size: 7px;
+  display: block;
+  overflow: hidden;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.petition-comments-list .petition-comments-list__header {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 15px;
+}
+.petition-comments-list .petition-comments-list__header-title {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.petition-comments-list .petition-comments-list__actions {
+  position: relative;
+  float: left;
+  width: 66.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.petition-comments-list .petition-comments-list__add-button {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 16px;
+  font-size: 14px;
+  line-height: 1.846;
+  border-radius: 3px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+.petition-comments-list .petition-comments-list__add-button:focus,
+.petition-comments-list .petition-comments-list__add-button:active:focus,
+.petition-comments-list .petition-comments-list__add-button.active:focus,
+.petition-comments-list .petition-comments-list__add-button.focus,
+.petition-comments-list .petition-comments-list__add-button:active.focus,
+.petition-comments-list .petition-comments-list__add-button.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.petition-comments-list .petition-comments-list__add-button:hover,
+.petition-comments-list .petition-comments-list__add-button:focus,
+.petition-comments-list .petition-comments-list__add-button.focus {
+  color: #444;
+  text-decoration: none;
+}
+.petition-comments-list .petition-comments-list__add-button:active,
+.petition-comments-list .petition-comments-list__add-button.active {
+  outline: 0;
+  background-image: none;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.petition-comments-list .petition-comments-list__add-button.disabled,
+.petition-comments-list .petition-comments-list__add-button[disabled],
+fieldset[disabled] .petition-comments-list .petition-comments-list__add-button {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  box-shadow: none;
+}
+.petition-comments-list .petition-comments-list__add-button-link {
+  border-radius: 3px;
+  box-shadow: none;
+  color: #444;
+}
+.petition-comments-list .petition-comments-list__add-button-link:hover,
+.petition-comments-list .petition-comments-list__add-button-link:focus {
+  box-shadow: none;
+  color: #444;
+  text-decoration: none;
+}
+.petition-comments-list .petition-comments-list__add-button-default.disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+}
+.petition-comment-item {
+  margin-bottom: 25px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  border-color: #ddd;
+}
+.petition-comment-item > .list-group,
+.petition-comment-item > .panel-collapse > .list-group {
+  margin-bottom: 0;
+}
+.petition-comment-item > .list-group .list-group-item,
+.petition-comment-item > .panel-collapse > .list-group .list-group-item {
+  border-width: 1px 0;
+  border-radius: 0;
+}
+.petition-comment-item > .list-group:first-child .list-group-item:first-child,
+.petition-comment-item > .panel-collapse > .list-group:first-child .list-group-item:first-child {
+  border-top: 0;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.petition-comment-item > .list-group:last-child .list-group-item:last-child,
+.petition-comment-item > .panel-collapse > .list-group:last-child .list-group-item:last-child {
+  border-bottom: 0;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.petition-comment-item > .table,
+.petition-comment-item > .table-responsive > .table,
+.petition-comment-item > .panel-collapse > .table {
+  margin-bottom: 0;
+}
+.petition-comment-item > .table caption,
+.petition-comment-item > .table-responsive > .table caption,
+.petition-comment-item > .panel-collapse > .table caption {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.petition-comment-item > .table:first-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.petition-comment-item > .table:first-child > thead:first-child > tr:first-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,
+.petition-comment-item > .table:first-child > tbody:first-child > tr:first-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+.petition-comment-item > .table:first-child > thead:first-child > tr:first-child td:first-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,
+.petition-comment-item > .table:first-child > tbody:first-child > tr:first-child td:first-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child,
+.petition-comment-item > .table:first-child > thead:first-child > tr:first-child th:first-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,
+.petition-comment-item > .table:first-child > tbody:first-child > tr:first-child th:first-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child {
+  border-top-left-radius: 2px;
+}
+.petition-comment-item > .table:first-child > thead:first-child > tr:first-child td:last-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child,
+.petition-comment-item > .table:first-child > tbody:first-child > tr:first-child td:last-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child,
+.petition-comment-item > .table:first-child > thead:first-child > tr:first-child th:last-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,
+.petition-comment-item > .table:first-child > tbody:first-child > tr:first-child th:last-child,
+.petition-comment-item > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {
+  border-top-right-radius: 2px;
+}
+.petition-comment-item > .table:last-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child {
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.petition-comment-item > .table:last-child > tbody:last-child > tr:last-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,
+.petition-comment-item > .table:last-child > tfoot:last-child > tr:last-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child {
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.petition-comment-item > .table:last-child > tbody:last-child > tr:last-child td:first-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,
+.petition-comment-item > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
+.petition-comment-item > .table:last-child > tbody:last-child > tr:last-child th:first-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,
+.petition-comment-item > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child {
+  border-bottom-left-radius: 2px;
+}
+.petition-comment-item > .table:last-child > tbody:last-child > tr:last-child td:last-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child,
+.petition-comment-item > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
+.petition-comment-item > .table:last-child > tbody:last-child > tr:last-child th:last-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,
+.petition-comment-item > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
+.petition-comment-item > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child {
+  border-bottom-right-radius: 2px;
+}
+.petition-comment-item > .panel-body + .table,
+.petition-comment-item > .panel-body + .table-responsive,
+.petition-comment-item > .table + .panel-body,
+.petition-comment-item > .table-responsive + .panel-body {
+  border-top: 1px solid #ddd;
+}
+.petition-comment-item > .table > tbody:first-child > tr:first-child th,
+.petition-comment-item > .table > tbody:first-child > tr:first-child td {
+  border-top: 0;
+}
+.petition-comment-item > .table-bordered,
+.petition-comment-item > .table-responsive > .table-bordered {
+  border: 0;
+}
+.petition-comment-item > .table-bordered > thead > tr > th:first-child,
+.petition-comment-item > .table-responsive > .table-bordered > thead > tr > th:first-child,
+.petition-comment-item > .table-bordered > tbody > tr > th:first-child,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr > th:first-child,
+.petition-comment-item > .table-bordered > tfoot > tr > th:first-child,
+.petition-comment-item > .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+.petition-comment-item > .table-bordered > thead > tr > td:first-child,
+.petition-comment-item > .table-responsive > .table-bordered > thead > tr > td:first-child,
+.petition-comment-item > .table-bordered > tbody > tr > td:first-child,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr > td:first-child,
+.petition-comment-item > .table-bordered > tfoot > tr > td:first-child,
+.petition-comment-item > .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+  border-left: 0;
+}
+.petition-comment-item > .table-bordered > thead > tr > th:last-child,
+.petition-comment-item > .table-responsive > .table-bordered > thead > tr > th:last-child,
+.petition-comment-item > .table-bordered > tbody > tr > th:last-child,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr > th:last-child,
+.petition-comment-item > .table-bordered > tfoot > tr > th:last-child,
+.petition-comment-item > .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+.petition-comment-item > .table-bordered > thead > tr > td:last-child,
+.petition-comment-item > .table-responsive > .table-bordered > thead > tr > td:last-child,
+.petition-comment-item > .table-bordered > tbody > tr > td:last-child,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr > td:last-child,
+.petition-comment-item > .table-bordered > tfoot > tr > td:last-child,
+.petition-comment-item > .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+  border-right: 0;
+}
+.petition-comment-item > .table-bordered > thead > tr:first-child > td,
+.petition-comment-item > .table-responsive > .table-bordered > thead > tr:first-child > td,
+.petition-comment-item > .table-bordered > tbody > tr:first-child > td,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr:first-child > td,
+.petition-comment-item > .table-bordered > thead > tr:first-child > th,
+.petition-comment-item > .table-responsive > .table-bordered > thead > tr:first-child > th,
+.petition-comment-item > .table-bordered > tbody > tr:first-child > th,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr:first-child > th {
+  border-bottom: 0;
+}
+.petition-comment-item > .table-bordered > tbody > tr:last-child > td,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr:last-child > td,
+.petition-comment-item > .table-bordered > tfoot > tr:last-child > td,
+.petition-comment-item > .table-responsive > .table-bordered > tfoot > tr:last-child > td,
+.petition-comment-item > .table-bordered > tbody > tr:last-child > th,
+.petition-comment-item > .table-responsive > .table-bordered > tbody > tr:last-child > th,
+.petition-comment-item > .table-bordered > tfoot > tr:last-child > th,
+.petition-comment-item > .table-responsive > .table-bordered > tfoot > tr:last-child > th {
+  border-bottom: 0;
+}
+.petition-comment-item > .table-responsive {
+  border: 0;
+  margin-bottom: 0;
+}
+.petition-comment-item-heading {
+  border-bottom: none;
+}
+.petition-comment-item-footer {
+  border-top: none;
+}
+.petition-comment-item > .panel-heading {
+  color: #212121;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+.petition-comment-item > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #ddd;
+}
+.petition-comment-item > .panel-heading .badge {
+  color: #f5f5f5;
+  background-color: #212121;
+}
+.petition-comment-item > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #ddd;
+}
+.petition-comment-item .petition-comment-item__header {
+  color: #212121;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+.petition-comment-item .petition-comment-item__header + .panel-collapse > .panel-body {
+  border-top-color: #ddd;
+}
+.petition-comment-item .petition-comment-item__header .badge {
+  color: #f5f5f5;
+  background-color: #212121;
+}
+.petition-comment-item .petition-comment-item__header .petition-comment-item__author {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+}
+.petition-comment-item .petition-comment-item__header .petition-comment-item__author > a,
+.petition-comment-item .petition-comment-item__header .petition-comment-item__author > small,
+.petition-comment-item .petition-comment-item__header .petition-comment-item__author > .small,
+.petition-comment-item .petition-comment-item__header .petition-comment-item__author > small > a,
+.petition-comment-item .petition-comment-item__header .petition-comment-item__author > .small > a {
+  color: inherit;
+}
+.petition-comment-item .petition-comment-item__datetime {
+  color: #bbb;
+  text-align: right;
+}
+.petition-comment-item .petition-comment-item__content {
+  padding: 15px;
+  margin-top: 18px;
+}
+.petition-comment-item__header {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.petition-comment-item__header > .dropdown .dropdown-toggle {
+  color: inherit;
+}
+.add-comment-form {
+  display: none;
+  margin: 20px 0;
+}
 footer {
   text-align: center;
   margin-bottom: 12.5px;
-  margin-top: 30px;
+  margin-top: 25px;
 }
 footer::before {
   content: ' ';
@@ -7738,6 +8271,13 @@ footer::before {
 }
 textarea {
   resize: vertical;
+}
+.pagination-row {
+  width: 100%;
+  text-align: center;
+}
+.pagination-row .pagination {
+  margin: 0;
 }
 
 /*# sourceMappingURL=app.css.map */

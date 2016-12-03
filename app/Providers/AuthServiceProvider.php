@@ -4,6 +4,8 @@ namespace Kneu\Petition\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Kneu\Petition\Petition;
+use Kneu\Petition\Policies\PetitionPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Kneu\Petition\Model' => 'Kneu\Petition\Policies\ModelPolicy',
+        Petition::class => PetitionPolicy::class,
     ];
 
     /**

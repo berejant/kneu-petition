@@ -21,7 +21,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      * @var array
      */
     protected $fillable = [
-        'id', 'email', 'first_name', 'middle_name', 'last_name', 'role',
+        'id', 'email', 'first_name', 'middle_name', 'last_name', 'type', 'role',
     ];
 
     public function petitions()
@@ -49,4 +49,13 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
         return null;
     }
 
+    public function getName ()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function isSuperAdmin()
+    {
+        return 'admin' === $this->role;
+    }
 }

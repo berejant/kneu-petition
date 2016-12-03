@@ -13,26 +13,85 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-
 const app = new Vue({
     el: '#app'
 });
 
+let ajaxErrorHandler = function(response) {
+    if(401 === response.status) {
+        location.assign('/login');
+    }
+};
+
+function formToObject (form) {
+    let post = {};
+    _.forEach($(form).serializeArray(), function(item) {
+        post[ item.name ] = item.value;
+    });
+
+    return post;
+}
+
 jQuery(function ($) {
+    // кнопки, які працюють лише авторизованних користувачів
+    if(!$('.logout-form').length) {
+        $('.require-authentication').on('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            location.assign('/login');
+        });
+    }
+
+    // проголосувати за петицію
    $('.vote-button').on('click', function () {
-       var petitionId = $(this).data('petitionId');
+       const petitionId = $(this).data('petitionId');
 
-       Vue.http.post('/petitions/' + petitionId + '/vote').then((response) => {
-           location.reload();
-           // success callback
-       }, (response) => {
-//           var answer = response.body;
-           if(401 === response.status) {
-               location.assign('/login');
-           }
+       Vue.http.post('/petitions/' + petitionId + '/vote')
+           .then((response) => {
+               location.reload();
+           }, ajaxErrorHandler);
+   });
 
-       });
-   })
+    // відобразити форму "додати комментар"
+    $('.petition-comments-list').each(function() {
+        $addComentWidget = $('.add-comment-form', this);
+
+        $('.petition-comments-list__add-button', this).on('click', function(event) {
+            if(!event.isDefaultPrevented()){
+                $(this).hide();
+                $addComentWidget.slideDown().find(':input:visible:not(:button):first').focus();
+            }
+        });
+    });
+
+    // відправити форму "додати коментар"
+    $('.add-comment-form').on('submit', function (event) {
+        event.preventDefault();
+
+        const petitionId = $(this).data('petitionId');
+        let post = formToObject(this);
+
+        Vue.http.post('/petitions/' + petitionId + '/comments', post)
+            .then((response) => {
+                location.reload();
+            }, ajaxErrorHandler);
+
+    });
+
+    // видалити петицію
+    $('.petition-item__remove').on('click', function (event) {
+        event.preventDefault();
+        let confirmText = $(this).data('confirmText');
+
+        if(confirm(confirmText)) {
+            const petitionId = $(this).data('petitionId');
+
+            Vue.http.delete('/petitions/' + petitionId)
+                .then((response) => {
+                    location.assign('/');
+                }, ajaxErrorHandler);
+        }
+    });
+
 });
 
