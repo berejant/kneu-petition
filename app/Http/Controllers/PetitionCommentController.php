@@ -39,6 +39,8 @@ class PetitionCommentController extends Controller
      */
     public function store(StorePetitionCommentPost $request, Petition $petition)
     {
+        abort_if($petition->is_closed, 403);
+
         $petitionComment = new PetitionComment();
         $petitionComment->fill($request->all());
         $petitionComment->petition()->associate($petition);
@@ -66,29 +68,53 @@ class PetitionCommentController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  StorePetitionCommentPost $request
+     * @param  Petition $petition
+     * @param  PetitionComment $petitionComment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePetitionCommentPost $request, Petition $petition, PetitionComment $petitionComment)
     {
-        //
+        $this->authorize('update', $petitionComment);
+
+        $petitionComment->fill($request->all());
+        $petitionComment->save();
+
+        if($request->ajax()) {
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        return redirect()->action('PetitionController@show', ['petition' => $petition]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Request $request
+     * @param  Petition $petition
+     * @param  PetitionComment $petitionComment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Petition $petition, PetitionComment $petitionComment)
     {
-        //
+        $this->authorize('delete', $petitionComment);
+
+        $petitionComment->delete();
+
+        if($request->ajax()) {
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        return redirect()->action('PetitionController@show', ['petition' => $petition]);
     }
 }

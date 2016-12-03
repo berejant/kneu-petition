@@ -32,13 +32,23 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="{{ active_class(if_route('petitions.index.open')) }}"><a href="{{ route('petitions.index.open') }}">Триває збір підписів</a></li>
-                <li class="{{ active_class(if_route('petitions.index.successful')) }}"><a href="{{ route('petitions.index.successful') }}">На розгляді</a></li>
-                <li class="{{ active_class(if_route('petitions.index')) }}"><a href="{{ route('petitions.index') }}">Всі петиції</a></li>
+                <li class="{{ active_class(if_route('petitions.index.open')) }}">
+                    <a href="{{ route('petitions.index.open') }}">@lang('petition.filter.open')</a>
+                </li>
 
-                <li class="{{ active_class(if_route('petitions.create')) }}"><a href="{{ route('petitions.create') }}">
-                    <button class="new-petition-button">Подати петицію</button>
-                </a></li>
+                <li class="{{ active_class(if_route('petitions.index.successful')) }}">
+                    <a href="{{ route('petitions.index.successful') }}">@lang('petition.filter.successful')</a>
+                </li>
+
+                <li class="{{ active_class(if_route('petitions.index')) }}">
+                    <a href="{{ route('petitions.index') }}">@lang('petition.filter.all')</a>
+                </li>
+
+                <li class="{{ active_class(if_route('petitions.create')) }}">
+                    <a href="{{ route('petitions.create') }}">
+                        <button class="new-petition-button">Подати петицію</button>
+                    </a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

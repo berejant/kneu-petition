@@ -20,3 +20,8 @@ Route::get('/petitions/successful', 'PetitionController@index')->name('petitions
 Route::post('/petitions/{petition}/vote', 'PetitionController@vote')->name('petitions.vote');
 Route::resource('petitions', 'PetitionController');
 Route::resource('petitions.comments', 'PetitionCommentController');
+
+Route::model('comment', Kneu\Petition\PetitionComment::class);
+
+$c = Route::getRoutes();
+// var_dump($c);exit;

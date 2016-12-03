@@ -18,6 +18,19 @@ class PetitionPolicy
     }
 
     /**
+     * Determine whether the user can view the petition.
+     *
+     * @param  \Kneu\Petition\User  $user
+     * @param  \Kneu\Petition\Petition $petition
+     * @return mixed
+     */
+    public function view(User $user, Petition $petition)
+    {
+        return true;
+    }
+
+
+    /**
      * Determine whether the user can create petitions.
      *
      * @param  \Kneu\Petition\User  $user

@@ -93,5 +93,57 @@ jQuery(function ($) {
         }
     });
 
+    $('.petition-comment-item__edit').on('click', function (event) {
+        event.preventDefault();
+        $(this).hide();
+
+        const petitionId = $(this).data('petitionId');
+        const petitionCommentId = $(this).data('petitionCommentId');
+        let $petitionCommentContainer = $(this).parents('.petition-comment-item:first');
+        let $petitionCommentContent = $petitionCommentContainer.find('.petition-comment-item__content');
+
+        let $form = $('.add-comment-form').clone()
+            .removeData()
+            .addClass('edit-comment-form');
+
+        let content = $petitionCommentContent.html();
+        content = content.replace(/<br[^>]*>\n?/gi, "\n");
+        content = _.trim(content);
+        let $contentInput = $form.find('#content').val(content);
+        $contentInput.height($petitionCommentContent.height() + 40);
+
+        $petitionCommentContent.empty().append($form);
+        $form.show();
+        $contentInput.focus();
+
+        $form.on('submit', function(event) {
+           event.preventDefault();
+           let postData = formToObject($form);
+
+           Vue.http.put('/petitions/' + petitionId + '/comments/' + petitionCommentId, postData)
+               .then((response) => {
+                   location.reload();
+               }, ajaxErrorHandler);
+        });
+
+    });
+
+
+    // видалити петицію
+    $('.petition-comment-item__remove').on('click', function (event) {
+        event.preventDefault();
+        let confirmText = $(this).data('confirmText');
+
+        if(confirm(confirmText)) {
+            const petitionId = $(this).data('petitionId');
+            const petitionCommentId = $(this).data('petitionCommentId');
+
+            Vue.http.delete('/petitions/' + petitionId + '/comments/' + petitionCommentId)
+                .then((response) => {
+                    location.reload();
+                }, ajaxErrorHandler);
+        }
+    });
+
 });
 

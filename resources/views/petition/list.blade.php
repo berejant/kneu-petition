@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <h1>Всі петиції</h1>
+    <h1>@lang('petition.filterHeader.' . $filter)</h1>
 
     <div class="petition-list">
         @foreach($petitions as $petition)

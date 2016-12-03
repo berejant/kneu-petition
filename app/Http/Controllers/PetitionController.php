@@ -41,12 +41,14 @@ class PetitionController extends Controller
         switch ($filter) {
             case 'open': $builder->where('is_closed', false); break;
             case 'successful': $builder->where('is_successful', true); break;
+
+            default: $filter = 'all'; break;
         }
 
         $petitions = $builder->paginate(10);
 
         return view('petition.list', compact(
-            'petitions'
+            'petitions', 'filter'
         ));
     }
 

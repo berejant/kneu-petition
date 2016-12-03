@@ -267,6 +267,8 @@ th {
 .logout-icon,
 .petition-item .petition-item__edit > i,
 .petition-item .petition-item__remove > i,
+.petition-comment-item .petition-comment-item__edit > i,
+.petition-comment-item .petition-comment-item__remove > i,
 .petition-resolution__icon {
   position: relative;
   top: 1px;
@@ -2955,6 +2957,8 @@ select[multiple].form-group-lg .form-control {
 .new-petition-button,
 .petition-item .petition-item__edit,
 .petition-item .petition-item__remove,
+.petition-comment-item .petition-comment-item__edit,
+.petition-comment-item .petition-comment-item__remove,
 .vote-button {
   display: inline-block;
   margin-bottom: 0;
@@ -3363,6 +3367,8 @@ fieldset[disabled] .btn-link:focus {
 .btn-group-sm > .btn,
 .petition-item .petition-item__edit,
 .petition-item .petition-item__remove,
+.petition-comment-item .petition-comment-item__edit,
+.petition-comment-item .petition-comment-item__remove,
 .btn-group-sm > .vote-button {
   padding: 5px 10px;
   font-size: 12px;
@@ -6813,6 +6819,8 @@ button.close {
 .new-petition-button,
 .petition-item .petition-item__edit,
 .petition-item .petition-item__remove,
+.petition-comment-item .petition-comment-item__edit,
+.petition-comment-item .petition-comment-item__remove,
 .vote-button {
   text-transform: uppercase;
   border: none;
@@ -7736,7 +7744,6 @@ fieldset[disabled] .new-petition-button.active {
   margin-left: -15px;
   margin-right: -15px;
   margin-bottom: 35px;
-  background-color: #f9f9f9;
 }
 .petition-item .petition-item__header {
   position: relative;
@@ -8033,6 +8040,10 @@ fieldset[disabled] .petition-comments-list .petition-comments-list__add-button {
   color: rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
+.petition-comments-list .petition-comments-list__empty {
+  font-style: italic;
+  padding-left: 40px;
+}
 .petition-comment-item {
   margin-bottom: 25px;
   background-color: #fff;
@@ -8260,6 +8271,142 @@ fieldset[disabled] .petition-comments-list .petition-comments-list__add-button {
   padding: 15px;
   margin-top: 18px;
 }
+.petition-comment-item .petition-comment-item__actions {
+  display: inline-block;
+  float: right;
+}
+.petition-comment-item .petition-comment-item__edit {
+  color: #fff;
+  background-color: #ff9800;
+  border-color: transparent;
+  background-size: 200% 200%;
+  background-position: 50%;
+  margin: 0 15px;
+}
+.petition-comment-item .petition-comment-item__edit:hover,
+.petition-comment-item .petition-comment-item__edit:focus,
+.petition-comment-item .petition-comment-item__edit.focus,
+.petition-comment-item .petition-comment-item__edit:active,
+.petition-comment-item .petition-comment-item__edit.active,
+.open > .dropdown-toggle.petition-comment-item .petition-comment-item__edit {
+  color: #fff;
+  background-color: #cc7a00;
+  border-color: rgba(0, 0, 0, 0);
+}
+.petition-comment-item .petition-comment-item__edit:active,
+.petition-comment-item .petition-comment-item__edit.active,
+.open > .dropdown-toggle.petition-comment-item .petition-comment-item__edit {
+  background-image: none;
+}
+.petition-comment-item .petition-comment-item__edit.disabled,
+.petition-comment-item .petition-comment-item__edit[disabled],
+fieldset[disabled] .petition-comment-item .petition-comment-item__edit,
+.petition-comment-item .petition-comment-item__edit.disabled:hover,
+.petition-comment-item .petition-comment-item__edit[disabled]:hover,
+fieldset[disabled] .petition-comment-item .petition-comment-item__edit:hover,
+.petition-comment-item .petition-comment-item__edit.disabled:focus,
+.petition-comment-item .petition-comment-item__edit[disabled]:focus,
+fieldset[disabled] .petition-comment-item .petition-comment-item__edit:focus,
+.petition-comment-item .petition-comment-item__edit.disabled.focus,
+.petition-comment-item .petition-comment-item__edit[disabled].focus,
+fieldset[disabled] .petition-comment-item .petition-comment-item__edit.focus,
+.petition-comment-item .petition-comment-item__edit.disabled:active,
+.petition-comment-item .petition-comment-item__edit[disabled]:active,
+fieldset[disabled] .petition-comment-item .petition-comment-item__edit:active,
+.petition-comment-item .petition-comment-item__edit.disabled.active,
+.petition-comment-item .petition-comment-item__edit[disabled].active,
+fieldset[disabled] .petition-comment-item .petition-comment-item__edit.active {
+  background-color: #ff9800;
+  border-color: transparent;
+}
+.petition-comment-item .petition-comment-item__edit .badge {
+  color: #ff9800;
+  background-color: #fff;
+}
+.petition-comment-item .petition-comment-item__edit:focus {
+  background-color: #ff9800;
+}
+.petition-comment-item .petition-comment-item__edit:hover,
+.petition-comment-item .petition-comment-item__edit:active:hover {
+  background-color: #e08600;
+}
+.petition-comment-item .petition-comment-item__edit:active {
+  background-color: #c27400;
+  background-image: -webkit-radial-gradient(circle, #c27400 10%, #ff9800 11%);
+  background-image: radial-gradient(circle, #c27400 10%, #ff9800 11%);
+  background-repeat: no-repeat;
+  background-size: 1000% 1000%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.petition-comment-item .petition-comment-item__edit > i:before {
+  content: "\e065";
+}
+.petition-comment-item .petition-comment-item__remove {
+  color: #fff;
+  background-color: #e51c23;
+  border-color: transparent;
+  background-size: 200% 200%;
+  background-position: 50%;
+  margin: 0 15px;
+}
+.petition-comment-item .petition-comment-item__remove:hover,
+.petition-comment-item .petition-comment-item__remove:focus,
+.petition-comment-item .petition-comment-item__remove.focus,
+.petition-comment-item .petition-comment-item__remove:active,
+.petition-comment-item .petition-comment-item__remove.active,
+.open > .dropdown-toggle.petition-comment-item .petition-comment-item__remove {
+  color: #fff;
+  background-color: #b9151b;
+  border-color: rgba(0, 0, 0, 0);
+}
+.petition-comment-item .petition-comment-item__remove:active,
+.petition-comment-item .petition-comment-item__remove.active,
+.open > .dropdown-toggle.petition-comment-item .petition-comment-item__remove {
+  background-image: none;
+}
+.petition-comment-item .petition-comment-item__remove.disabled,
+.petition-comment-item .petition-comment-item__remove[disabled],
+fieldset[disabled] .petition-comment-item .petition-comment-item__remove,
+.petition-comment-item .petition-comment-item__remove.disabled:hover,
+.petition-comment-item .petition-comment-item__remove[disabled]:hover,
+fieldset[disabled] .petition-comment-item .petition-comment-item__remove:hover,
+.petition-comment-item .petition-comment-item__remove.disabled:focus,
+.petition-comment-item .petition-comment-item__remove[disabled]:focus,
+fieldset[disabled] .petition-comment-item .petition-comment-item__remove:focus,
+.petition-comment-item .petition-comment-item__remove.disabled.focus,
+.petition-comment-item .petition-comment-item__remove[disabled].focus,
+fieldset[disabled] .petition-comment-item .petition-comment-item__remove.focus,
+.petition-comment-item .petition-comment-item__remove.disabled:active,
+.petition-comment-item .petition-comment-item__remove[disabled]:active,
+fieldset[disabled] .petition-comment-item .petition-comment-item__remove:active,
+.petition-comment-item .petition-comment-item__remove.disabled.active,
+.petition-comment-item .petition-comment-item__remove[disabled].active,
+fieldset[disabled] .petition-comment-item .petition-comment-item__remove.active {
+  background-color: #e51c23;
+  border-color: transparent;
+}
+.petition-comment-item .petition-comment-item__remove .badge {
+  color: #e51c23;
+  background-color: #fff;
+}
+.petition-comment-item .petition-comment-item__remove:focus {
+  background-color: #e51c23;
+}
+.petition-comment-item .petition-comment-item__remove:hover,
+.petition-comment-item .petition-comment-item__remove:active:hover {
+  background-color: #cb171e;
+}
+.petition-comment-item .petition-comment-item__remove:active {
+  background-color: #b0141a;
+  background-image: -webkit-radial-gradient(circle, #b0141a 10%, #e51c23 11%);
+  background-image: radial-gradient(circle, #b0141a 10%, #e51c23 11%);
+  background-repeat: no-repeat;
+  background-size: 1000% 1000%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.petition-comment-item .petition-comment-item__remove > i:before {
+  content: "\e014";
+}
 .petition-comment-item__header {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
@@ -8272,6 +8419,18 @@ fieldset[disabled] .petition-comments-list .petition-comments-list__add-button {
 .add-comment-form {
   display: none;
   margin: 20px 0;
+}
+.add-comment-form .edit-comment-form__legend {
+  display: none;
+}
+.add-comment-form.edit-comment-form {
+  margin: -20px 0 0 0;
+}
+.add-comment-form.edit-comment-form .add-comment-form__legend {
+  display: none;
+}
+.add-comment-form.edit-comment-form .edit-comment-form__legend {
+  display: block;
 }
 .petition-votes .petition-votes__title {
   font-size: 19px;

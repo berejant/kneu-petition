@@ -39,7 +39,8 @@
                     </a>
 
                     @can('delete', $petition)
-                    <button class="petition-item__remove" data-petition-id="{{ $petition->id }}" data-confirm-text="Ви точно бажаєте видалити цю петицію?">
+                    <button class="petition-item__remove" data-petition-id="{{ $petition->id }}"
+                            data-confirm-text="Ви дійсно бажаєте видалити цю петицію?">
                         <i></i> Видалити
                     </button>
                     @endcan
@@ -60,15 +61,18 @@
             </div>
 
             <div class="petition-comments-list__actions">
+                @if(!$petition->is_closed)
                 <div class="petition-comments-list__add-button require-authentication">
                     Додати коментар
                 </div>
+                @endif
             </div>
         </div>
 
         <form class="add-comment-form" method="post" data-petition-id="{{ $petition->id }}">
             <fieldset>
-                <legend>Додати коментар</legend>
+                <legend class="add-comment-form__legend">Додати коментар</legend>
+                <legend class="edit-comment-form__legend">Редагувати коментар</legend>
                 <div class="form-group">
                     <textarea class="form-control" rows="5" name="content" id="content" required minlength="5" placeholder="Ваш коментар"></textarea>
                 </div>
@@ -79,7 +83,7 @@
             </fieldset>
         </form>
 
-        @foreach($petition->petitionComments as $petitionComment)
+        @forelse($petition->petitionComments as $petitionComment)
         <div class="petition-comment-item">
             <div class="petition-comment-item__header">
                 <span class="petition-comment-item__author">
@@ -89,13 +93,36 @@
                 <span class="petition-comment-item__datetime">
                     {{ $petitionComment->created_at->diffForHumans() }}
                 </span>
+
+                @can('update', $petitionComment)
+                <span class="petition-comment-item__actions">
+                    <button type="button" class="petition-comment-item__edit"
+                            data-petition-id="{{ $petition->id }}" data-petition-comment-id="{{ $petitionComment->id }}"
+                    >
+                        <i></i> Редагувати
+                    </button>
+
+                    @can('delete', $petitionComment)
+                    <button type="button" class="petition-comment-item__remove"
+                            data-petition-id="{{ $petition->id }}" data-petition-comment-id="{{ $petitionComment->id }}"
+                            data-confirm-text="Ви дійсно бажаєте видалити цей коментар?"
+                    >
+                        <i></i> Видалити
+                    </button>
+                    @endcan
+                </span>
+                @endcan
             </div>
 
             <div class="petition-comment-item__content">
-                {{ $petitionComment->content }}
+                {!! nl2br(e($petitionComment->content)) !!}
             </div>
         </div>
-        @endforeach
+        @empty
+            <div class="petition-comments-list__empty">
+                Коментарі відсутні
+            </div>
+        @endforelse
 
     </div>
 
