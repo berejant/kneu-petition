@@ -7,7 +7,7 @@
     <div class="petition-statistics">
         <div class="petition-statistics__status-diargam"
              data-data='{!! json_encode($statusStatistics, JSON_UNESCAPED_UNICODE) !!}'
-             data-title="Структура петицій по статусам"
+             data-title="Розподіл петицій за статусом"
         ></div>
     </div>
 
