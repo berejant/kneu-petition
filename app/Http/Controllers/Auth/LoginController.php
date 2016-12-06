@@ -49,7 +49,7 @@ class LoginController extends Controller
         }
 
         $user->fill($kneuUser->getRaw());
-        $user->trashed() ? $user->restore() : $user->touch();
+        $user->trashed() ? $user->restore() : $user->exists ? $user->touch() : $user->save();
 
         Auth::login($user);
 
