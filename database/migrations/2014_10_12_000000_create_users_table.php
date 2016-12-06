@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('middle_name');
             $table->string('last_name');
             $table->enum('role', ['admin'])->nullable();
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 

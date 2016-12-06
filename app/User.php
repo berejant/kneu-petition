@@ -41,7 +41,9 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
 {
     use Authorizable;
     use Authenticatable;
-    use SoftDeletes;
+
+    public $timestamps = false;
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.

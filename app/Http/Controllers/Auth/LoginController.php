@@ -43,17 +43,14 @@ class LoginController extends Controller
         /** @var KneuUser $kneuUser */
         $kneuUser = $this->getProvider()->user();
 
-        $user = User::withTrashed()->find($kneuUser->id);
-        if(!$user) {
-            $user = new User();
-        }
-
+        /** @var User $user */
+        $user = User::findOrNew($kneuUser->id);
         $user->fill($kneuUser->getRaw());
-        $user->trashed() ? $user->restore() : $user->exists ? $user->touch() : $user->save();
+        $user->saveOrFail();
 
         Auth::login($user);
 
-        $request->session()->put('userName', $user->first_name . ' ' . $user->middle_name);
+        $request->session()->put('userName', trim($user->first_name . ' ' . $user->middle_name));
 
         return redirect()->intended($this->redirectTo);
     }
