@@ -73,7 +73,7 @@ class PetitionController extends Controller
             $statistics = [
                 ['Статус петиції', 'Кількість'],
                 ['Йде голосування', Petition::where('is_closed', 0)->count()],
-                ['Не підтримано', Petition::where('is_closed', 0)->where('is_successful', 0) ->count()],
+                ['Не підтримано', Petition::where('is_closed', 1)->where('is_successful', 0)->count()],
                 ['На розгляді',   Petition::where('is_successful', 1) ->count()],
                 ['Розглянуто',  0],
             ];
