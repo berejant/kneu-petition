@@ -9,12 +9,6 @@
     <title>@yield('title')</title>
 
     <link href="/css/app.css" rel="stylesheet">
-    <!-- Scripts -->
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!}
-    </script>
 </head>
 <body>
 
@@ -55,12 +49,9 @@
                 @if(Auth::check())
                     <li><a><i class="user-icon"></i> Раді бачити, {{ session('userName', 'шановний пане') }}!</a></li>
 
-                    <li><a href="#">
-                        <form class="logout-form" action="{{ url('/logout') }}" method="POST">
-                            {{ csrf_field() }}
-                            <button><i class="logout-icon"></i> Вийти</button>
-                        </form>
-                    </a></li>
+                    <li><a href="#" class="logout-button">
+                            <i class="logout-icon"></i> Вийти
+                        </a></li>
                 @else
                     <li><a href="{{ route('login') }}">
                         <i class="login-icon"></i> Увійти
@@ -83,6 +74,7 @@
     </footer>
 </div>
 
+    <form id="logout-form" class="logout-form" action="{{ url('/logout') }}" method="POST">{{ csrf_field() }}</form>
     <script src="/js/app.js"></script>
 </body>
 </html>

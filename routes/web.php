@@ -23,5 +23,3 @@ Route::resource('petitions.comments', 'PetitionCommentController');
 
 Route::model('comment', Kneu\Petition\PetitionComment::class);
 
-$c = Route::getRoutes();
-// var_dump($c);exit;

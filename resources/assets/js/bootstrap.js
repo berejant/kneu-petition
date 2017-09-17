@@ -25,11 +25,20 @@ require('vue-resource');
  * included with Laravel will automatically verify the header's value.
  */
 
-Vue.http.interceptors.push((request, next) => {
-    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
+let tokenElement = document.head.querySelector('meta[name="csrf-token"]');
 
-    next();
-});
+if (tokenElement) {
+    let token = tokenElement.content;
+
+    Vue.http.interceptors.push((request, next) => {
+        request.headers.set('X-CSRF-TOKEN', token);
+
+        next();
+    });
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

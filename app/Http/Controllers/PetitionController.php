@@ -46,7 +46,7 @@ class PetitionController extends Controller
             default: $filter = 'all'; break;
         }
 
-        $petitions = $builder->paginate(10);
+        $petitions = $builder->paginate(30);
 
         $statusStatistics = $this->getPetitionStatusStatistics();
 

@@ -50,7 +50,7 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        $request->session()->put('userName', trim($user->first_name . ' ' . $user->middle_name));
+        $request->session()->put('userName', $user->getName());
 
         return redirect()->intended($this->redirectTo);
     }

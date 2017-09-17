@@ -1,11 +1,9 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for
  * building robust, powerful web applications using Vue and Laravel.
  */
-
-require('./bootstrap');
+import bootstrap from "./bootstrap";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -33,12 +31,21 @@ function formToObject (form) {
 }
 
 jQuery(function ($) {
-    // кнопки, які працюють лише авторизованних користувачів
-    if(!$('.logout-form').length) {
+    let $logoutForm = $('#logout-form'),
+        isGuest = !$logoutForm.length;
+
+    if(isGuest) {
+        // кнопки, які працюють лише авторизованних користувачів
         $('.require-authentication').on('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
             location.assign('/login');
+        });
+
+    } else {
+        $('.logout-button').on('click', function(event) {
+            event.preventDefault();
+            $logoutForm.submit();
         });
     }
 
