@@ -4,6 +4,10 @@
 
 @section('content')
 
+    <div class="petition-qrcode">
+        @include('qrcode')
+    </div>
+
     <div class="petition-statistics">
         <div class="petition-statistics__status-diargam"
              data-data='{!! json_encode($statusStatistics, JSON_UNESCAPED_UNICODE) !!}'

@@ -154,6 +154,10 @@ jQuery(function ($) {
 
     $('.petition-statistics__status-diargam').each(makeStatusDiagram);
 
+    let $petitionQrcode = $('.petition-qrcode').click(function () {
+        $petitionQrcode.toggleClass('petition-qrcode__focused');
+    })
+
 });
 
 // Google charts
