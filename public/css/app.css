@@ -7627,18 +7627,23 @@ fieldset[disabled] .new-petition-button.active {
 }
 .petition-statistics__status-diargam {
   height: 400px;
-  width: 100%;
+  width: 85%;
   margin: 0 auto;
 }
 .petition-qrcode {
-  display: block;
+  display: none;
   cursor: pointer;
   position: relative;
   float: left;
   z-index: 1;
-  left: -140px;
-  width: 272px;
-  height: 272px;
+  left: -45px;
+  width: 250px;
+  height: 250px;
+}
+@media (min-width: 768px) {
+  .petition-qrcode {
+    display: block;
+  }
 }
 .petition-qrcode svg {
   width: 100%;
