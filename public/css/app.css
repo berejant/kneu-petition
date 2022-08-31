@@ -7580,6 +7580,8 @@ fieldset[disabled] .new-petition-button.active {
   padding-right: 15px;
   padding: 10px 0;
   line-height: 38px;
+  word-break: break-word;
+  overflow: hidden;
 }
 .petition-list-item .petition-list-item__id {
   position: relative;
@@ -7600,6 +7602,7 @@ fieldset[disabled] .new-petition-button.active {
   padding-right: 15px;
   font-size: 19px;
   font-weight: bold;
+  
 }
 .petition-list-item .petition-list-item__description {
   position: relative;
@@ -7611,6 +7614,7 @@ fieldset[disabled] .new-petition-button.active {
 }
 .petition-list-item .petition-list-item__content {
   min-height: 100px;
+  word-break: break-word;
 }
 .petition-list-item .petition-list-item__description-bottom {
   padding-top: 25px;
@@ -7669,6 +7673,7 @@ fieldset[disabled] .new-petition-button.active {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  word-break: break-word;
 }
 .petition-item .petition-item__content {
   position: relative;
@@ -7678,6 +7683,7 @@ fieldset[disabled] .new-petition-button.active {
   padding-left: 15px;
   padding-right: 15px;
   font-size: 16.8px;
+  word-break: break-word;
 }
 .petition-item .petition-item__progress {
   position: relative;
