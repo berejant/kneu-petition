@@ -36,6 +36,24 @@ class LoginTest extends TestCase
         $this->assertStringContainsString('redirect_uri=' . urlencode('http://localhost/login/complete'), $location);
     }
 
+    public function test_login_redirect_uri_has_no_double_slashes(): void
+    {
+        config(['services.kneu.redirect' => 'http://localhost//login/complete']);
+
+        $location = $this->get('/login')->headers->get('Location');
+
+        $this->assertStringContainsString('redirect_uri=' . urlencode('http://localhost/login/complete'), $location);
+    }
+
+    public function test_login_redirect_uri_defaults_to_route(): void
+    {
+        config(['services.kneu.redirect' => null]);
+
+        $location = $this->get('/login')->headers->get('Location');
+
+        $this->assertStringContainsString('redirect_uri=' . urlencode(route('login.complete')), $location);
+    }
+
     public function test_login_complete_creates_and_authenticates_user(): void
     {
         $raw = [

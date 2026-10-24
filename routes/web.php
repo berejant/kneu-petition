@@ -17,7 +17,7 @@ use Kneu\Petition\Http\Controllers\PetitionController;
 */
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/login/complete', [LoginController::class, 'loginComplete']);
+Route::get('/login/complete', [LoginController::class, 'loginComplete'])->name('login.complete');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [PetitionController::class, 'index'])->name('petitions.index.open');

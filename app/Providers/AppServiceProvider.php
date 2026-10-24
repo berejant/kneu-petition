@@ -27,7 +27,13 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapThree();
 
         Socialite::extend('kneu', function ($app) {
-            return Socialite::buildProvider(KneuProvider::class, $app['config']['services.kneu']);
+            $config = $app['config']['services.kneu'];
+
+            // KNEU_REDIRECT_URI може бути не задано або зібрано як "${APP_URL}/login/complete"
+            // з APP_URL, що закінчується на "/", тож прибираємо подвійні слеші у шляху
+            $config['redirect'] = preg_replace('~(?<!:)/{2,}~', '/', $config['redirect'] ?: route('login.complete'));
+
+            return Socialite::buildProvider(KneuProvider::class, $config);
         });
     }
 
