@@ -3,13 +3,15 @@
 namespace Kneu\Petition\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Kneu\Petition\Http\Controllers\Controller;
 use Kneu\Petition\User;
 use Laravel\Socialite\Facades\Socialite;
-use SocialiteProviders\Manager\OAuth2\User as KneuUser;
+use Laravel\Socialite\Two\User as KneuUser;
 
-class LoginController extends Controller
+class LoginController extends Controller implements HasMiddleware
 {
     /**
      * Where to redirect users after login.
@@ -18,13 +20,15 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/';
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        return [
+            new Middleware('guest', except: ['logout']),
+        ];
     }
 
     /**
-     * @return \SocialiteProviders\Kneu\Provider
+     * @return \Kneu\Petition\Socialite\KneuProvider
      */
     protected function getProvider()
     {

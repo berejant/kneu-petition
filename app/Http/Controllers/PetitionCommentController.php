@@ -92,7 +92,7 @@ class PetitionCommentController extends Controller
             ]);
         }
 
-        return redirect()->action('PetitionController@show', ['petition' => $petition]);
+        return redirect()->action([PetitionController::class, 'show'], ['petition' => $petition]);
     }
 
     /**
@@ -115,6 +115,6 @@ class PetitionCommentController extends Controller
             ]);
         }
 
-        return redirect()->action('PetitionController@show', ['petition' => $petition]);
+        return redirect()->action([PetitionController::class, 'show'], ['petition' => $petition]);
     }
 }

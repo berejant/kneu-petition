@@ -1,5 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Kneu\Petition\Http\Controllers\Auth\LoginController;
+use Kneu\Petition\Http\Controllers\PetitionCommentController;
+use Kneu\Petition\Http\Controllers\PetitionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,15 +16,14 @@
 |
 */
 
-Route::get('/login', 'Auth\LoginController@login')->name('login');
-Route::get('/login/complete', 'Auth\LoginController@loginComplete');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/login/complete', [LoginController::class, 'loginComplete'])->name('login.complete');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/', 'PetitionController@index')->name('petitions.index.open');
-Route::get('/petitions/successful', 'PetitionController@index')->name('petitions.index.successful');
-Route::post('/petitions/{petition}/vote', 'PetitionController@vote')->name('petitions.vote');
-Route::resource('petitions', 'PetitionController');
-Route::resource('petitions.comments', 'PetitionCommentController');
+Route::get('/', [PetitionController::class, 'index'])->name('petitions.index.open');
+Route::get('/petitions/successful', [PetitionController::class, 'index'])->name('petitions.index.successful');
+Route::post('/petitions/{petition}/vote', [PetitionController::class, 'vote'])->name('petitions.vote');
+Route::resource('petitions', PetitionController::class);
+Route::resource('petitions.comments', PetitionCommentController::class);
 
 Route::model('comment', Kneu\Petition\PetitionComment::class);
-

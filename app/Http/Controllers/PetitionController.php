@@ -3,24 +3,25 @@
 namespace Kneu\Petition\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Kneu\Petition\Http\Requests\StorePetitionPost;
 use Kneu\Petition\Petition;
 use Kneu\Petition\PetitionComment;
 use Kneu\Petition\PetitionVote;
-use Cache;
 
-class PetitionController extends Controller
+class PetitionController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth', [
-            'except' => [
+        return [
+            new Middleware('auth', except: [
                 'index',
                 'show',
-            ]
-        ]);
+            ]),
+        ];
     }
 
     /**
@@ -78,7 +79,7 @@ class PetitionController extends Controller
                 ['Розглянуто',  0],
             ];
 
-            Cache::put(__METHOD__, $statistics, 10);
+            Cache::put(__METHOD__, $statistics, now()->addMinutes(10));
         }
 
         return $statistics;
@@ -142,7 +143,7 @@ class PetitionController extends Controller
 
         $this->save($request, $petition);
 
-        return redirect()->action('PetitionController@show', ['petition' => $petition]);
+        return redirect()->action([PetitionController::class, 'show'], ['petition' => $petition]);
     }
 
     /**
@@ -158,7 +159,7 @@ class PetitionController extends Controller
 
         $this->save($request, $petition);
 
-        return redirect()->action('PetitionController@show', ['petition' => $petition]);
+        return redirect()->action([PetitionController::class, 'show'], ['petition' => $petition]);
     }
 
     protected function save(StorePetitionPost $request, Petition $petition)
@@ -185,7 +186,7 @@ class PetitionController extends Controller
             ]);
         }
 
-        return redirect()->action('PetitionController@index');
+        return redirect()->action([PetitionController::class, 'index']);
 
     }
 
@@ -212,6 +213,6 @@ class PetitionController extends Controller
             ]);
         }
 
-        return redirect()->action('PetitionController@show', ['petition' => $petition]);
+        return redirect()->action([PetitionController::class, 'show'], ['petition' => $petition]);
     }
 }

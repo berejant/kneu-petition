@@ -1,60 +1,73 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "kneu/petition",
     "type": "project",
+    "description": "Петиції КНЕУ",
+    "license": "MIT",
     "require": {
-        "php": ">=5.6.4",
-        "laravel/framework": "5.3.*",
-        "kneu/laravel-socialite-provider": "^1.0",
-        "hieu-le/active": "^3.3",
-        "laravelrus/localized-carbon": "^1.4"
+        "php": "^8.3",
+        "laravel/framework": "^13.38",
+        "laravel/socialite": "^5.23",
+        "laravel/tinker": "^3.0"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.0",
-        "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*",
-        "barryvdh/laravel-ide-helper": "^2.2",
-        "doctrine/dbal": "^2.5"
+        "barryvdh/laravel-ide-helper": "^3.6",
+        "fakerphp/faker": "^1.23",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^12.5.12"
     },
     "autoload": {
-        "classmap": [
-            "database"
-        ],
         "psr-4": {
-            "Kneu\\Petition\\": "app/"
+            "Kneu\\Petition\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "scripts": {
-        "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        "test": [
+            "@php artisan config:clear --ansi @no_additional_args",
+            "@php artisan test"
         ],
-        "post-create-project-cmd": [
-            "php artisan key:generate"
+        "ide-helper": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ],
-        "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
-            "php artisan optimize"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ]
     },
-    "config": {
-        "preferred-install": "dist",
-        "allow-plugins": {
-            "kylekatarnls/update-helper": true
+    "extra": {
+        "laravel": {
+            "dont-discover": []
         }
-    }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
