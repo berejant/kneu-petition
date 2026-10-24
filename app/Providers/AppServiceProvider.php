@@ -2,7 +2,15 @@
 
 namespace Kneu\Petition\Providers;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Kneu\Petition\Petition;
+use Kneu\Petition\PetitionComment;
+use Kneu\Petition\Policies\PetitionCommentPolicy;
+use Kneu\Petition\Policies\PetitionPolicy;
+use Kneu\Petition\Socialite\KneuProvider;
+use Laravel\Socialite\Facades\Socialite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Gate::policy(Petition::class, PetitionPolicy::class);
+        Gate::policy(PetitionComment::class, PetitionCommentPolicy::class);
+
+        Paginator::useBootstrapThree();
+
+        Socialite::extend('kneu', function ($app) {
+            return Socialite::buildProvider(KneuProvider::class, $app['config']['services.kneu']);
+        });
     }
 
     /**
@@ -25,9 +40,5 @@ class AppServiceProvider extends ServiceProvider
     {
         setlocale(LC_ALL, config('app.locale'), 'uk_UA', 'uk_UA.utf8');
         \Carbon\Carbon::setLocale(config('app.locale'));
-
-        if ($this->app->environment() !== 'production') {
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-        }
     }
 }

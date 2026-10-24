@@ -1,0 +1,38 @@
+@navbar-inverse-bg: #2b8c42;
+@navbar-inverse-link-color: #d7f7d7;
+
+.main-navbar {
+  &:extend(.navbar);
+  .navbar-inverse;
+
+  .navbar-brand {
+    padding-left: 64px;
+    background: url("../../images/logo.png") 0 center no-repeat;
+  }
+
+  .navbar-nav > li > a {
+    height: 64px;
+  }
+
+}
+
+.user-icon {
+  &:extend(.glyphicon);
+  .glyphicon-user;
+}
+
+.login-icon {
+  &:extend(.glyphicon);
+  .glyphicon-log-in;
+}
+
+.logout-icon {
+  &:extend(.glyphicon);
+  .glyphicon-log-out;
+}
+
+.new-petition-button {
+  &:extend(.btn);
+  .btn-sm;
+  .btn-default;
+}

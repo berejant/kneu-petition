@@ -8,7 +8,7 @@
 
     <title>@yield('title')</title>
 
-    <link href="/css/app.css" rel="stylesheet">
+    @vite(['resources/less/app.less', 'resources/js/app.js'])
 </head>
 <body>
 
@@ -26,19 +26,19 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="{{ active_class(if_route('petitions.index.open')) }}">
+                <li @class(['active' => request()->routeIs('petitions.index.open')])>
                     <a href="{{ route('petitions.index.open') }}">@lang('petition.filter.open')</a>
                 </li>
 
-                <li class="{{ active_class(if_route('petitions.index.successful')) }}">
+                <li @class(['active' => request()->routeIs('petitions.index.successful')])>
                     <a href="{{ route('petitions.index.successful') }}">@lang('petition.filter.successful')</a>
                 </li>
 
-                <li class="{{ active_class(if_route('petitions.index')) }}">
+                <li @class(['active' => request()->routeIs('petitions.index')])>
                     <a href="{{ route('petitions.index') }}">@lang('petition.filter.all')</a>
                 </li>
 
-                <li class="{{ active_class(if_route('petitions.create')) }}">
+                <li @class(['active' => request()->routeIs('petitions.create')])>
                     <a href="{{ route('petitions.create') }}">
                         <button class="new-petition-button">Подати петицію</button>
                     </a>
@@ -75,6 +75,5 @@
 </div>
 
     <form id="logout-form" class="logout-form" action="{{ url('/logout') }}" method="POST">{{ csrf_field() }}</form>
-    <script src="/js/app.js"></script>
 </body>
 </html>
